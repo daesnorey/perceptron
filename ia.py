@@ -30,9 +30,13 @@ print(z)
 p = Perceptron()
 
 a = []
-a.append([[1, 1], 1])
-a.append([[1, 0], 1])
-a.append([[0, 1], 1])
-a.append([[0, 0], 0])
+a.append([[1, 1, 1], 1])
+a.append([[1, 1, 0], 1])
+a.append([[1, 0, 1], 0])
+a.append([[1, 0, 0], 0])
+a.append([[0, 1, 1], 1])
+a.append([[0, 1, 0], 1])
+a.append([[0, 0, 1], 0])
+a.append([[0, 0, 0], 0])
 
-p.proceso(a)
+p.proceso(a, [0.5, 0.3, -0.7], 0.4)
