@@ -128,9 +128,19 @@ class Perceptron(object):
         self.W = []
         self.b = 0
 
-    def proceso(self, datos):
+    def proceso(self, datos, pesos=None, b=None):
         print("datos", datos)
-        self.calcula_pesos()
+        if len(datos) > 0 and len(datos[0]):
+            size = len(datos[0][0])
+        else:
+            raise ValueError("No se informaron datos")
+
+        if not pesos or not b:
+            self.calcula_pesos(tam=size)
+        else:
+            self.W = pesos
+            self.b = b
+
         cont = 0
         for i in range(len(datos)):
             p = datos[i]
@@ -142,12 +152,15 @@ class Perceptron(object):
                 e = self.valida_hardlim(valor, esperado)
                 print("error", e)
                 if e != 0:
-                    self.calcula_pesos(len(valores), valores, e)
+                    print "-"
+                    self.calcula_pesos(size, valores, e)
                     cont += 1
                 else:
                     break
             if cont > 100:
                 break
+            print "-" * 150
+            print "-" * 150
         print("cont", cont)
 
     def calcula_pesos(self, tam=2, valores=[], e=0):
@@ -162,13 +175,13 @@ class Perceptron(object):
 
             for i in range(len(__matriz)):
                 self.W[i] = self.W[i] + __matriz[i]
-            
+
             self.b = self.b + e
 
         print("calcula_pesos", self.W, self.b, valores)
 
     def obtiene_n_aleatorio(self):
-        return random.uniform(-1,1)
+        return random.uniform(-1, 1)
 
     def evalua(self, valores):
         print("evalua", "valores", valores)
